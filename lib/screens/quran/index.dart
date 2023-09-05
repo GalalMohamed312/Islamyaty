@@ -68,7 +68,7 @@ class _IndexPageState extends State<IndexPage> {
               backgroundColor: const Color.fromARGB(255, 56, 115, 59),
             ),
             body: FutureBuilder(
-              future: cubit.readJson(),
+              future: cubit.readQuranJson(),
               builder: (
                   BuildContext context,
                   AsyncSnapshot snapshot,
@@ -92,7 +92,7 @@ class _IndexPageState extends State<IndexPage> {
         },
       ),
     );
-    ;
+
   }
 
   Container indexCreator(quran, context) {

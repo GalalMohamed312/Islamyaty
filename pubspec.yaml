@@ -37,8 +37,12 @@ dependencies:
   geolocator: ^9.0.2
   arabic_numbers: ^1.0.0
   scrollable_positioned_list: ^0.2.3
+  google_fonts: ^5.1.0
   share_plus: ^4.0.3
   url_launcher: ^6.1.6
+#  background_fetch: ^1.2.1
+#  flutter_background_service: ^5.0.1
+#  overlay_support: ^2.1.0
 #  flutter_barcode_scanner: ^2.0.0
 #  scroll_positioned: ^0.0.4
 dev_dependencies:
@@ -54,6 +58,7 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/
+    - assets/json/
   fonts:
     - family: quran
       fonts:

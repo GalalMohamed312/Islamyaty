@@ -15,3 +15,4 @@ class SignInErrorState extends HomeStates{
   SignInErrorState(this.error);
 }
 class ChangeViewState extends HomeStates{}
+class ChangeTafseerState extends HomeStates{}

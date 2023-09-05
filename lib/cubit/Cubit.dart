@@ -7,11 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:islamyat/cubit/states.dart';
-import 'package:islamyat/screens/Audio.dart';
+import 'package:islamyat/screens/azkar/azkar.dart';
 import 'package:islamyat/screens/Prayer.dart';
 import 'package:islamyat/screens/quran/Quran.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../screens/hadith/Ahadith.dart';
 import '../screens/home.dart';
 import '../utils/constants.dart';
 
@@ -23,17 +24,11 @@ class HomeCubit extends Cubit<HomeStates>{
   List<Widget> screens=[
      const Home(),
     const Quran(),
-    const Prayer(),
-    const Audio(),
+    const Azkar(),
+    const AllAhadithScreen(),
     // const Shop(),
   ];
-  List<String>titles=[
-    'Home',
-    'Community',
-    'Tracking',
-    'Learning',
-    // 'Shop',
-  ];
+
 List<TabItem> screenItems=[
   const TabItem(icon:Icon(
     Icons.home_outlined,
@@ -43,9 +38,9 @@ List<TabItem> screenItems=[
    TabItem(icon: Image.asset("assets/images/QuranIcon.jpeg",color:Colors.white60,fit: BoxFit.cover,),
       title:'Quran'),
    TabItem(icon:Image.asset("assets/images/mosqueIcon.jpeg",color: Colors.white60,),
-      title:'Prayer' ),
+      title:'Azkar' ),
    TabItem(icon: Image.asset("assets/images/Audio.jpeg",color: Colors.white60,),
-      title:'Audio' ),
+      title:'Ahadith' ),
 ];
 void changeIndex(int index){
   currentIndex=index;
@@ -57,7 +52,7 @@ void changeIndex(int index){
   List quran =[];
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =ItemPositionsListener.create();
-  Future readJson ()async{
+  Future readQuranJson ()async{
     final String response =await rootBundle.loadString("assets/fonts/hafs_smart_v8.json");
     final data=json.decode(response);
     arabic=data["quran"];
@@ -70,6 +65,7 @@ void changeIndex(int index){
     view=!view;
     emit(ChangeViewState());
   }
+
   jumbToAyah(ayah) {
     if (fabIsClicked) {
       itemScrollController.scrollTo(
@@ -79,6 +75,7 @@ void changeIndex(int index){
     }
     fabIsClicked = false;
   }
+
   Future saveSettings() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('arabicFontSize', arabicFontSize.toInt());
@@ -115,5 +112,19 @@ void changeIndex(int index){
     catch(e){
       return false;
     }
+  }
+
+  bool showTafseer=false;
+  void changeShowTafsser(){
+    showTafseer=!showTafseer;
+    emit(ChangeTafseerState());
+  }
+  List azkar =[];
+  Future readAzkarJson ()async{
+    final String response =await rootBundle.loadString("assets/json/azkar.json");
+    final data=json.decode(response);
+    azkar=data;
+    print(azkar[0]);
+    return azkar;
   }
 }
