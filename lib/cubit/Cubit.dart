@@ -7,14 +7,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:islamyat/cubit/states.dart';
-import 'package:islamyat/screens/azkar/azkar.dart';
-import 'package:islamyat/screens/Prayer.dart';
-import 'package:islamyat/screens/quran/Quran.dart';
+import 'package:islamyat/presentation/utils/app_colors.dart';
+
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../screens/hadith/Ahadith.dart';
-import '../screens/home.dart';
-import '../utils/constants.dart';
+
+import '../presentation/screens/azkar/azkar.dart';
+import '../presentation/screens/hadith/Ahadith.dart';
+import '../presentation/screens/home.dart';
+import '../presentation/screens/quran/Quran.dart';
+import '../presentation/utils/constants.dart';
+import '../presentation/utils/assets.dart';
+
 
 
 class HomeCubit extends Cubit<HomeStates>{
@@ -32,33 +36,32 @@ class HomeCubit extends Cubit<HomeStates>{
 List<TabItem> screenItems=[
   const TabItem(icon:Icon(
     Icons.home_outlined,
-    color: Colors.grey,
+    color: AppColors.background,
   ),
-  title:'Home' ),
-   TabItem(icon: Image.asset("assets/images/QuranIcon.jpeg",color:Colors.white60,fit: BoxFit.cover,),
-      title:'Quran'),
-   TabItem(icon:Image.asset("assets/images/mosqueIcon.jpeg",color: Colors.white60,),
-      title:'Azkar' ),
-   TabItem(icon: Image.asset("assets/images/Audio.jpeg",color: Colors.white60,),
-      title:'Ahadith' ),
+  title:'الرئيسيه' ),
+   TabItem(icon: Image.asset("assets/images/quraniconimage.png",color:AppColors.background,fit: BoxFit.cover,),
+      title:'القرآن'),
+   TabItem(icon:Image.asset("assets/images/doaa.png",color: AppColors.background,),
+      title:'أذكار' ),
+   TabItem(icon: Image.asset("assets/images/tauhid.png",color: AppColors.background,),
+      title:'أحاديث' ,),
 ];
 void changeIndex(int index){
   currentIndex=index;
   emit(HomeChangeBottomNavBarState());
 }
 
-  List arabic =[];
-  List malayalam =[];
-  List quran =[];
+
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =ItemPositionsListener.create();
+
+  List arabic =[];
+  List quran =[];
   Future readQuranJson ()async{
-    final String response =await rootBundle.loadString("assets/fonts/hafs_smart_v8.json");
+    final String response =await rootBundle.loadString(JsonAssets.moshafHafs);
     final data=json.decode(response);
     arabic=data["quran"];
-    print(arabic);
-    malayalam=data["malayalam"];
-    return quran=[arabic,malayalam];
+    return quran=[arabic];
   }
   bool view = true;
   void changeView(){
