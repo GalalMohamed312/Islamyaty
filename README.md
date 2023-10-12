@@ -1,6 +1,6 @@
 # islamyat
 
-A new Flutter project.
+![Screenshot 2023-10-12 141742](https://github.com/010148990581/Islamyaty/assets/138633648/f945c921-b1df-405d-8fd4-22a6ca885c4d)
 
 ## Getting Started
 
